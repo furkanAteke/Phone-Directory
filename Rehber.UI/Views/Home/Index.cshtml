@@ -1,0 +1,133 @@
+﻿@using Core.Dto
+@model List<UserDto>
+
+<!-- Menu Start -->
+<div class="container-fluid bg-light pb-5 menuDiv">
+    <div class="container">
+        <h1 class="text-center text-uppercase fs-3 p-5 pb-3 me-3 menuTittle">TELEFON REHBERİ</h1>
+        <div class="row">
+            <div class="col-sm-2">
+                <label for="phoneNumber" class="text-dark fs-5 lSorgu">Sorgu:</label>
+            </div>
+            <div class="col-sm-5">
+                <input type="text" class="form-control search" id="arama" placeholder="Ada Göre Ara">
+            </div>
+            <div class="col-sm-2 pt-3">
+                <h5 class="text-center">Hoşgeldin @ViewBag.Username!!</h5>
+            </div>
+        </div>
+        <hr class="mt-2">
+        <div class="row">
+            <div class="col">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover table-dark table-bordered border-light" id="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First Name</th>
+                                <th scope="col">Last Name</th>
+                                <th scope="col">Number</th>
+                                <th scope="col">#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Count > 0)
+                            {
+                                int counter = 1;
+                                @foreach (var user in Model)
+                                {
+                                    <tr>
+                                        <th scope="row">@counter</th>
+                                        <td class="Name">@user.Ad</td>
+                                        <td>@user.Soyad</td>
+                                        <td data-phone="@user.Numara" class="PhoneNumber">@user.Numara</td>
+                                        <td>
+                                            <a asp-action="Update" asp-route-id="@user.Id" class="btn btn-primary">Update</a>
+                                            <a class="btn btn-danger deleteBtn" data-id="@user.Id" href="javascript:void(0);">Delete</a>
+                                            <a asp-action="Detail" asp-route-id="@user.Id" class="btn btn-success">Detail</a>
+                                        </td>
+                                    </tr>
+                                    counter++;
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td class="align-middle text-center" colspan="5">Rehberinizde Kayıtlı Kişi Yok<br><a href="/Home/Add"><button class="btn btn-success ekle mt-2">KİŞİ EKLE</button></a></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Delete Confirmation -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="deleteModalLabel">ONAY</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bu kullanıcıyı silmek istediğinizden emin misiniz?
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" method="post">
+                    <button type="submit" class="btn btn-danger">SİL</button>
+                </form>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">KAPAT</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal End -->
+<!-- Menu End -->
+
+<script>
+    $(document).ready(function () {
+        var deleteIndex;
+
+        $(".deleteBtn").on("click", function () {
+            var userId = $(this).data("id");  
+            $("#deleteForm").attr("action", "/Home/Delete/" + userId);
+            $("#deleteModal").modal("show");
+        });
+
+        $("#arama").keyup(function () { // Arama
+            var aranan = $(this).val().toLowerCase();
+            if (aranan.length >= 2) {
+                $("tbody tr").hide();
+                $("tbody tr").filter(function () {
+                    return $(this).find("td.Name").text().toLowerCase().includes(aranan);
+                }).show();
+            } else {
+                $("tbody tr").show();
+            }
+        });
+    });
+    $(document).ready(function () {
+        // Telefon numarasını biçimlendirme fonksiyonu
+        function formatPhoneNumber(phoneNumber) {
+            // Sayıyı sadece rakamlardan oluşan bir string'e dönüştür
+            var numbers = phoneNumber.replace(/\D/g, '');
+
+            // Eğer yeterli uzunlukta bir telefon numarası varsa, biçimlendir
+            if (numbers.length === 11) {
+                return '0 (' + numbers.slice(1, 4) + ') ' + numbers.slice(4, 7) + ' ' + numbers.slice(7, 9) + ' ' + numbers.slice(9, 11);
+            }
+            return phoneNumber; // Eğer formatlanabilir değilse, olduğu gibi döndür
+        }
+
+        // Telefon numaralarını biçimlendir
+        $(".PhoneNumber").each(function () {
+            var rawPhone = $(this).data('phone');
+            var formattedPhone = formatPhoneNumber(rawPhone);
+            $(this).text(formattedPhone); // Biçimlendirilmiş telefon numarasını yerleştir
+        });
+    });
+</script>

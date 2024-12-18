@@ -1,0 +1,61 @@
+﻿@using Data.Entities
+@model User
+<div class="container bg-dark mt-5 p-5 rounded-5">
+    <h1 class="text-center text-uppercase fs-3 me-3 text-light menuTittle">KİŞİ GÜNCELLE</h1>
+    <hr class="mt-2">
+    <form id="form" asp-action="Update" method="post">
+        <input type="hidden" asp-for="Id"/>
+        <div class="row text-center pt-2">
+            <div class="col-sm-2">
+                <label asp-for="Ad" for="firstName" class="text-light">Ad:</label>
+            </div>
+            <div class="col-sm-5">
+                <input asp-for="Ad" type="text" class="form-control" id="firstName" placeholder="Ad" required>
+            </div>
+            <div class="col-sm-5">
+                <input asp-for="Soyad" type="text" class="form-control" id="surname" placeholder="Soyad" required>
+            </div>
+        </div>
+        <div class="row text-center pt-2 mt-4">
+            <div class="col-sm-2">
+                <label asp-for="Numara" for="phoneNumber" class="text-light">Numara:</label>
+            </div>
+            <div class="col-sm-5">
+                <input asp-for="Numara" type="text" class="form-control" id="phoneNumber" placeholder="Numara" required>
+            </div>
+            <div class="col-sm-5">
+                <input asp-for="UserDetail.Numara2" type="text" class="form-control" id="phoneNumber2" placeholder="Numara - 2 (İsteğe Bağlı)">
+            </div>
+        </div>
+        <div class="row text-center pt-2 mt-4">
+            <div class="col-sm-2">
+                <label asp-for="UserDetail.ImageUrl" for="imgUrl" class="text-light">Resim URL:</label>
+            </div>
+            <div class="col-sm-5">
+                <input asp-for="UserDetail.ImageUrl" type="text" class="form-control" id="imgUrl" placeholder="Resim URL (İsteğe Bağlı)">
+            </div>
+            <div class="col-sm-5 text-center">
+                <button type="submit" class="btn btn-success" id="ekle">EKLE</button>
+                <a href="/Home/Index"><button type="button" class="btn btn-secondary" id="ekle">&larr;</button></a>
+            </div>
+        </div>
+    </form>
+</div>
+<div id="alert-container"></div>
+
+<script>
+    function showAlert(type, message) {
+        const div = document.createElement("div");
+        div.className = "alert alert-" + type + " alert-dismissible fade show";
+        div.textContent = message;
+        $("#alert-container").append(div);
+        setTimeout(function () {
+            div.remove();
+        }, 3000);
+    }
+    function clear() {
+        $("#firstName").val("");
+        $("#surname").val("");
+        $("#phoneNumber").val("");
+    }
+</script>

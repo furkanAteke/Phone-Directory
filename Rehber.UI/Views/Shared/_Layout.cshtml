@@ -1,0 +1,70 @@
+﻿</html>
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/extra.css">
+    <link rel="icon" href="~/image/favicon.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Telefon Rehberi</title>
+</head>
+<body>
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-md bg-dark" id="navBar">
+        <div class="container-fluid">
+            <a class="navbar-brand text-light title ms-3 navTittle" href="/Home/Index"><p class="navTittle">REHBER</p></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav navUl ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-light navItem" aria-current="page" href="/Home/Index">Anasayfa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light navItem" href="/Home/Add">Ekle</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light navItem" href="/Home/About">Hakkımızda</a>
+                    </li>
+                    @if (ViewBag.IsLoggedIn == true)
+                    {
+                        <li class="nav-item">
+                            <a href="#" class="nav-link text-light navItem" data-bs-toggle="modal" data-bs-target="#logoutModal">Çıkış Yap</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <button class="navbar-toggler myButton" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="icon"><i class="bi bi-list text-light"></i></span>
+            </button>
+        </div>
+    </nav>
+    @if (ViewBag.IsLoggedIn == true)
+    {
+        <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="logoutModalLabel">Çıkış Yap</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Çıkış yapmak üzeresiniz. Emin misiniz?
+                    </div>
+                    <div class="modal-footer">
+                        <a asp-action="Logout" asp-controller="Login" class="btn btn-danger">Çıkış Yap</a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <!-- Navbar End -->
+    @RenderBody()
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

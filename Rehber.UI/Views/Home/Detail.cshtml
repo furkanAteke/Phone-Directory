@@ -1,0 +1,70 @@
+﻿@using Data.Entities
+@model User
+
+<!-- Menu Start -->
+<div class="container-fluid bg-light pb-5 menuDiv">
+    <div class="container">
+        <h1 class="text-center text-uppercase fs-3 p-5 pb-3 me-3 menuTittle">Kullanıcı Detayı</h1>
+        <div class="row">
+            <div class="col-sm-2">
+                <label class="text-dark fs-5 lSorgu">Ad:</label>
+            </div>
+            <div class="col-sm-5">
+                <p class="form-control">@Model.Ad</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label class="text-dark fs-5 lSorgu">Soyad:</label>
+            </div>
+            <div class="col-sm-5">
+                <p class="form-control">@Model.Soyad</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label class="text-dark fs-5 lSorgu">Numara:</label>
+            </div>
+            <div class="col-sm-5">
+                <p class="form-control">@Model.Numara</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label class="text-dark fs-5 lSorgu">Numara - 2:</label>
+            </div>
+            <div class="col-sm-5">
+                @if (!string.IsNullOrEmpty(Model.UserDetail?.Numara2))
+                {
+                    <p class="form-control">@Model.UserDetail.Numara2</p>
+                }
+                else
+                {
+                    <p>Bilgi Yok</p>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2">
+                <label class="text-dark fs-5 lSorgu">Resim:</label>
+            </div>
+            <div class="col-sm-5">
+                @if (!string.IsNullOrEmpty(Model.UserDetail?.ImageUrl))
+                {
+                    <img src="@Model.UserDetail.ImageUrl" class="img-fluid rounded" style="max-width: 100px; object-fit: cover;">
+                }
+                else
+                {
+                    <p>Bilgi Yok</p>
+                }
+            </div>
+        </div>
+        <hr class="mt-4">
+        <div class="text-center">
+            <a href="/Home/Index">
+                <button class="btn btn-secondary">Geri</button>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- Menu End -->
