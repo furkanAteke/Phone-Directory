@@ -1,4 +1,4 @@
-#PHONE DIRECTORY
+# PHONE DIRECTORY
 Developed Using Asp.net MVC
 
 Properties
@@ -14,4 +14,4 @@ Developer
 Name = Furkan 
 Email = afurkanteke0@gmail.com
 
-#Continuing to be developed !!
+# Continuing to be developed !!
