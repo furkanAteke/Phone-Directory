@@ -11,7 +11,7 @@ Technology
 - Asp.net mvc, c#
 
 Developer
-Name = Furkan 
-Email = afurkanteke0@gmail.com
+- Name = Furkan
+- Email = afurkanteke0@gmail.com
 
 # Continuing to be developed !!
